@@ -35,6 +35,9 @@ class AlbumsPhoto extends GalleryAppModel {
 	}
 
 	public function afterSave($created, $options = array()) {
+		if (!$created) {
+			return;
+		}
 		$Photo = ClassRegistry::init('Gallery.Photo');
 		$photo = $Photo->find('first', array(
 			'recursive' => -1,

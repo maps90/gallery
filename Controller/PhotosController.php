@@ -41,7 +41,7 @@ class PhotosController extends GalleryAppController {
 		$this->Prg->commonProcess();
 
 		$this->paginate['contain'] = array(
-			'OriginalAsset', 'ThumbnailAsset', 'LargeAsset',
+			'Album', 'OriginalAsset', 'ThumbnailAsset', 'LargeAsset',
 		);
 
 		$this->paginate['conditions'] = $this->Photo->parseCriteria($this->passedArgs);

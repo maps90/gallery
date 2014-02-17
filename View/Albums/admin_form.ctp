@@ -87,6 +87,8 @@ if (empty($this->data['Album']['title'])) {
 			?>
 			</div>
 
+			<?php echo $this->Croogo->adminTabs(); ?>
+
 		</div>
 	</div>
 
