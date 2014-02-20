@@ -79,7 +79,7 @@ class AlbumsController extends GalleryAppController {
 
 			$this->request->data['Album']['position'] = $position[0][0]['position'] + 1;
 
-			if ($this->Album->save($this->request->data)) {
+			if ($this->Album->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('Album is saved.'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -99,7 +99,8 @@ class AlbumsController extends GalleryAppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->request->data)) {
-			if ($this->Album->save($this->request->data)) {
+			$this->Album->type = 'album';
+			if ($this->Album->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('Album is saved.'), 'default', array('class' => 'success'));
 				$this->Croogo->redirect(array('action' => 'edit', $id));
 			} else {

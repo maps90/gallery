@@ -16,6 +16,7 @@ App::uses('GalleryAppModel', 'Gallery.Model');
 class Album extends GalleryAppModel {
 
 	public $actsAs = array(
+		'Croogo.Encoder',
 		'Croogo.Params',
 		'Search.Searchable',
 		'Taxonomy.Taxonomizable',
@@ -103,6 +104,25 @@ class Album extends GalleryAppModel {
 			}
 			return $results;
 		}
+	}
+
+	public function beforeSave($options = array()) {
+		$data = $this->data;
+		if (array_key_exists('TaxonomyData', $this->data)) {
+			$this->Behaviors->Taxonomizable->formatTaxonomyData($this, $this->data, 'album');
+		}
+		return true;
+	}
+
+	public function afterFind($results, $primary = false) {
+		foreach ($results as &$result) {
+			if (isset($result[$this->alias]['terms'])) {
+				$keys = $this->decodeData($result[$this->alias]['terms']);
+				$result['Taxonomy']['Taxonomy'] = array_keys($keys);
+			}
+
+		}
+		return $results;
 	}
 
 }
