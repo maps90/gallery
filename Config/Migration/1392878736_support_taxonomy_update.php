@@ -20,7 +20,7 @@ class SupportTaxonomyUpdate extends CakeMigration {
 		'up' => array(
 			'create_field' => array(
 				'albums' => array(
-					'terms' => array('type' => 'string', 'null' => 'true', 'default' => null, 'length' => 50),
+					'terms' => array('type' => 'text', 'null' => 'true', 'default' => null),
 				),
 			),
 		),

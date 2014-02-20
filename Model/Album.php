@@ -118,7 +118,7 @@ class Album extends GalleryAppModel {
 		foreach ($results as &$result) {
 			if (isset($result[$this->alias]['terms'])) {
 				$keys = $this->decodeData($result[$this->alias]['terms']);
-				$result['Taxonomy']['Taxonomy'] = array_keys($keys);
+				$result['Taxonomy']['Taxonomy'] = array_keys((array)$keys);
 			}
 
 		}

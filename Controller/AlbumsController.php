@@ -86,7 +86,7 @@ class AlbumsController extends GalleryAppController {
 				$this->Session->setFlash(__d('gallery','Album could not be saved. Please try again.'));
 			}
 		}
-		$this->_setCommonVariables($type);
+		$this->Taxonomies->prepareCommonData($type);
 		$this->set('types', $this->jslibs);
 	}
 
@@ -107,21 +107,10 @@ class AlbumsController extends GalleryAppController {
 				$this->Session->setFlash(__d('gallery','Album could not be saved. Please try again.'));
 			}
 		}
-		$this->_setCommonVariables($type);
+		$this->Taxonomies->prepareCommonData($type);
 
 		$this->request->data = $this->Album->read(null, $id);
 		$this->set('types', $this->jslibs);
-	}
-
-	protected function _setCommonVariables($type) {
-		$typeAlias = $type['Type']['alias'];
-		$vocabularies = Hash::combine($type['Vocabulary'], '{n}.id', '{n}');
-		$taxonomy = array();
-		foreach ($type['Vocabulary'] as $vocabulary) {
-			$vocabularyId = $vocabulary['id'];
-			$taxonomy[$vocabularyId] = $this->Taxonomy->getTree($vocabulary['alias'], array('taxonomyId' => true));
-		}
-		$this->set(compact('typeAlias', 'type', 'vocabularies', 'taxonomy'));
 	}
 
 	function admin_delete($id = null) {
